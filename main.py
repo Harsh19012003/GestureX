@@ -4,16 +4,23 @@
 import os
 import cv2
 from tensorflow.keras.models import load_model
+import pyautogui
 # from keras_visualizer import visualizer
 
+
+# pyautogui.FAILSAFE = False
+
+
 # Loading model
-model = load_model("model_0.h5")
+model = load_model("weights.06-0.04.h5")
 
 model.summary()
 
 # Visualizing model
 # visualizer(model, format='png', view=True)
 
+# Output labels
+lables = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thrteen", "fourteen", "fifteen", "sixteen", "seventeen", "eightteen", "nineteen"]
 
 cap = cv2.VideoCapture(0)
 
@@ -42,7 +49,32 @@ while True:
 
     result = model.predict(img_tobe_predicted)
 
-    print(result)
+    # print(result)
+    # print(f"type: {type(result)}")
+
+    prediction = lables[result.argmax()]
+
+    print(prediction)
+
+    # Mouse movements
+    
+    if prediction == "nine": # Left movement
+        pyautogui.move(-10, 0)
+    elif prediction == "six" or prediction == "seven": # Right movement
+        pyautogui.move(10, 0)
+    elif prediction == "fifteen": # Single click
+        pyautogui.click()
+    elif prediction == "four": # Up movemvent
+        pyautogui.move(0, 10)
+    elif prediction == "eight": # Down movement
+        pyautogui.move(0, -10)
+    elif prediction == "eleven": # Scroll up
+        pyautogui.scroll(1)
+    '''elif prediction == : # Double click
+        pyautogui.click(clicks=2) or pyautogui.doubleclick()
+    elif prediction == : # Scroll down
+        pyautogui.scroll(-10)
+    '''
 
     if cv2.waitKey(10) & 0xFF == 27:
         break

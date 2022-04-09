@@ -10,7 +10,7 @@ from keras.preprocessing.image import ImageDataGenerator
 # Path Set
 train_path = "data/gestures/train"
 test_path = "data/gestures/test"
-validate_path = "data/gestures/validate"
+validate_path = "data/gestures/test"
 
 
 
@@ -58,20 +58,22 @@ print(true_labels)
 # CNN Architecture
 model = Sequential([
     Conv2D(filters=32, kernel_size=(3, 3), activation="relu", padding="same", input_shape=(64, 64, 1)),
-    MaxPool2D(pool_size=(2, 2), strides=2),
+    MaxPool2D(pool_size=(2, 2)),
     Conv2D(filters=64, kernel_size=(3, 3), activation="relu", padding="same"),
-    MaxPool2D(pool_size=(2, 2), strides=2),
+    MaxPool2D(pool_size=(2, 2)),
     Flatten(),
     Dense(units=20, activation="softmax")
 ])
+
 
 model.summary()
 
 # Compiling model
 model.compile(optimizer=Adam(learning_rate=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
 
-# Training model
-model.fit(train_batches, epochs=10, verbose=2, validation_data=test_batches, steps_per_epoch=1800)
+
+model.fit(train_batches, epochs=100, verbose=2, validation_data=test_batches, steps_per_epoch=1800)
+
 
 # Save model
 if os.path.isfile("model_0.h5") is False:
