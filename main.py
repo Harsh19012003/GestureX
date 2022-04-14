@@ -5,19 +5,15 @@ import os
 import cv2
 from tensorflow.keras.models import load_model
 import pyautogui
-# from keras_visualizer import visualizer
 
-
+# failsafe for uncontrollable mouse
 # pyautogui.FAILSAFE = False
 
 
 # Loading model
-model = load_model("weights.06-0.04.h5")
+model = load_model("model_1.h5")
 
 model.summary()
-
-# Visualizing model
-# visualizer(model, format='png', view=True)
 
 # Output labels
 lables = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thrteen", "fourteen", "fifteen", "sixteen", "seventeen", "eightteen", "nineteen"]

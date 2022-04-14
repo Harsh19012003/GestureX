@@ -1,5 +1,7 @@
 import os
+import cv2
 # import numpy as np
+import matplotlib.pyplot as plt
 import tensorflow as tf
 import keras
 # import scipy
@@ -13,8 +15,6 @@ train_path = "data/gestures/train"
 test_path = "data/gestures/test"
 validate_path = "data/gestures/test"
 
-
-
 train_batches = ImageDataGenerator(rescale=1.0/255, shear_range=0.2, zoom_range=0.2, rotation_range=45, horizontal_flip=True).flow_from_directory(directory=train_path, target_size=(64, 64), batch_size=10, color_mode="grayscale", class_mode="categorical")
 # print(f"train_batches: {train_batches}")
 test_batches = ImageDataGenerator(rescale=1.0/255, shear_range=0.2, zoom_range=0.2, rotation_range=45, horizontal_flip=True).flow_from_directory(directory=test_path, target_size=(64, 64), batch_size=10, color_mode="grayscale", class_mode="categorical")
@@ -23,8 +23,7 @@ test_batches = ImageDataGenerator(rescale=1.0/255, shear_range=0.2, zoom_range=0
 
 imgs, labels = next(train_batches)
 
-# Tensorflow website
-"""
+# Plotting images
 def plotImages(images_arr):
     fig, axes = plt.subplots(1, 10, figsize=(64, 64))
     axes = axes.flatten()
@@ -33,28 +32,9 @@ def plotImages(images_arr):
         ax.axis("off")
     plt.tight_layout()
     plt.show()
-"""
 
-# Converts categorical output to named output
-"""
-labels = labels.tolist()
-true_labels= []
-true_directory = train_batches.class_indices
-print(train_batches.class_indices)
-
-def label_names(labels):
-    print(labels)
-    for i in labels:
-        index = i.index(1.0)
-        true_labels.append(list(true_directory.keys())[list(true_directory.values()).index(index)])
-        # print(list(true_directory.keys())[list(true_directory.values()).index(index)])
-    return true_labels
-
+print("Example images for reference on which our network would be trained")
 plotImages(imgs)
-true_labels = label_names(labels)
-print(true_labels)
-"""
-
 
 # CNN Architecture
 '''model = Sequential([
@@ -89,7 +69,7 @@ model.summary()
 model.compile(optimizer=Adam(learning_rate=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
 
 
-
+# setting checkpoint and using save best only model
 checkpoint_filepath = 'weights.{epoch:02d}-{val_loss:.2f}.h5'
 
 model_checkpoint_callback = keras.callbacks.ModelCheckpoint(
