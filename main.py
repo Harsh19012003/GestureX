@@ -6,13 +6,14 @@ import cv2
 from tensorflow.keras.models import load_model
 import pyautogui
 
+
 # failsafe for uncontrollable mouse
 # pyautogui.FAILSAFE = False
-
 
 # Loading model
 model = load_model("model_1.h5")
 
+# Printing model summary for visualization
 model.summary()
 
 # Output labels
@@ -41,6 +42,7 @@ while True:
 
     cv2.imshow("ROI", roi)
 
+    # Preprocessed image to be fed to neural network for prediction
     img_tobe_predicted = roi.reshape(1, 64, 64, 1)
 
     result = model.predict(img_tobe_predicted)
@@ -50,29 +52,29 @@ while True:
 
     prediction = lables[result.argmax()]
 
-    print(prediction)
+    # print(prediction)
 
     # Mouse movements
-    
     if prediction == "nine": # Left movement
         pyautogui.move(-10, 0)
+        print("LEFT MOVEMENT")
     elif prediction == "six" or prediction == "seven": # Right movement
         pyautogui.move(10, 0)
+        print("RIGHT MOVEMENT")
     elif prediction == "fifteen": # Single click
         pyautogui.click()
+        print("SINGLE CLICK")
     elif prediction == "four": # Up movemvent
         pyautogui.move(0, 10)
+        print("DOWN MOVEMENT")
     elif prediction == "eight": # Down movement
         pyautogui.move(0, -10)
+        print("UP MOVEMENT")
     elif prediction == "eleven": # Scroll up
-        pyautogui.scroll(1)
-    '''elif prediction == : # Double click
-        pyautogui.click(clicks=2) or pyautogui.doubleclick()
-    elif prediction == : # Scroll down
-        pyautogui.scroll(-10)
-    '''
+        pyautogui.click(button='right')
+        print("RIGHT MOVEMENT")
 
-    if cv2.waitKey(10) & 0xFF == 27:
+    if cv2.waitKey(10) and 0xFF == 27:
         break
    
     

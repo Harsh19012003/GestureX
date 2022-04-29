@@ -1,3 +1,6 @@
+# MINI PROJECT
+# HAND GESTURE RECOGNITION
+
 from tensorflow.keras.models import load_model
 from ann_visualizer.visualize import ann_viz
 

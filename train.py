@@ -1,3 +1,6 @@
+# MINI PROJECT
+# HAND GESTURE RECOGNITION
+
 import os
 # import numpy as np
 import tensorflow as tf
@@ -22,7 +25,6 @@ validate_batches = ImageDataGenerator(rescale=1./255, shear_range=0.2, zoom_rang
 
 imgs, labels = next(train_batches)
 
-# Tensorflow website
 """
 def plotImages(images_arr):
     fig, axes = plt.subplots(1, 10, figsize=(64, 64))
@@ -76,5 +78,5 @@ model.fit(train_batches, epochs=100, verbose=2, validation_data=test_batches, st
 
 
 # Save model
-if os.path.isfile("model_0.h5") is False:
-    model.save("model_0.h5")
+if os.path.isfile("model_1.h5") is False:
+    model.save("model_1.h5")
