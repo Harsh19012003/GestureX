@@ -14,7 +14,7 @@ Powered by a custom-built architecture developed using TensorFlow, GestureX deli
 - Efficient and intuitive mouse control functionalities 🖱️💨
 
 ## Installation 🚀
-1. Clone the repository: `git clone https://github.com/your-username/gesturex.git`
+1. Clone the repository: `git clone https://github.com/Harsh19012003/GestureX.git`
 2. Install the required dependencies: `pip install -r requirements.txt`
 
 ## Usage 🎮
